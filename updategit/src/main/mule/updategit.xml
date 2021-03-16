@@ -18,7 +18,7 @@ output application/json
 ---
 {
 	"AppName": app.name,
-	"Message": "processed successfully.",
+	"Message": "This is successful message",
 	"Status": "Active"
 }]]></ee:set-payload>
 			</ee:message>
