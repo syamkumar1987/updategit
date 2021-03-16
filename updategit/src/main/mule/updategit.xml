@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2e590079-2a96-4dc5-ac57-f386a36d814b" >
+		<http:listener-connection host="0.0.0.0" port="8095" />
+	</http:listener-config>
+	<flow name="updategitFlow" doc:id="941cf5b1-098c-4a52-b9b1-c8829c10918f" >
+		<http:listener doc:name="Listener" doc:id="00f608a0-3fef-4173-b6eb-4410c54629aa" config-ref="HTTP_Listener_config" path="/update"/>
+		<logger level="INFO" doc:name="Logger" doc:id="efaa1726-6389-4d19-b5ab-8ea1e8b86104" message="flow started..."/>
+		<ee:transform doc:name="Transform Message" doc:id="20dd16c1-8d31-4d57-8661-7e8fcffc4712" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"AppName": app.name,
+	"Message": "processed successfully.",
+	"Status": "Active"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="b2b0c4c8-c702-42b4-b950-152fb6a14562" message="#[payload]"/>
+	</flow>
+</mule>
