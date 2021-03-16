@@ -19,7 +19,7 @@ output application/json
 {
 	"AppName": app.name,
 	"Message": "This is successful message",
-	"Status": "Active"
+	"UpdatedStatus": "Active"
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
